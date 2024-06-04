@@ -1,0 +1,19 @@
+usermodel
+full name - string
+email - string
+password -string
+cart -array
+contact - number
+picture- db
+
+
+products
+
+image
+name
+price
+discount
+bg color
+panelcolor
+text color
+
