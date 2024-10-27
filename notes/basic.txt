@@ -1,0 +1,59 @@
+git init ==> folders ko track karane ke liye
+jab ham commit kare to nodemodule or .env file ko git gitignore jaroor kare 
+git add karane par jo khali folders hote hei vo terck nahi hote create a ==> .gitkeep
+form me valid info ko check karne ke liye validiter ka use hota he ==> mongoose.validiter
+environment variable "development" ko change kar sakte hei yese routes bana sakte hei jo sirf agar "development" fease chalu ho to hi chale iska maksad hei ki koi dusara owner create na kar paye
+ese kai environment evariable bana sakte hei expl "development","production"... 
+
+
+  "dependencies": {
+    "bcrypt": "^5.1.1", --------------------- password ko bcrypt karne ke liye
+    "config": "^3.3.11", --------------------?
+    "cookie-parser": "^1.4.6",--------------- login logout karane ke kam aata hei, cookie set karta hei
+    "debug": "^4.3.5",  ---------------------?
+    "dotenv": "^16.4.5",  ------------------- environment variable handel karne ke liye
+    "ejs": "^3.1.10",  ---------------------- ejs pages ko run karne ke liye 
+    "express": "^4.19.2",-------------------- backend connect karne ke liye req se lekar kya res bhejana hei vo saara kam
+    "jsonwebtoken": "^9.0.2", --------------- ?
+    "mongoose": "^8.4.1", ------------------- mongodb database se connect karane ke liye 
+    "multer": "^1.4.5-lts.1"----------------- files upload karne ke liye
+  }
+
+
+       brown
+text          #774F3D
+penal         #DEBEAE
+bg-color      #F4DDD2
+
+
+     lightblue
+text          #48606E
+penal         #D3E4EE
+bg-color      #F3F8FB
+
+
+   khakhi-brown
+text          #5F4A30
+penal         #C5B095
+bg-color      #DED0BF
+
+
+       PINK
+text          #816264
+penal         #E3C4C6
+bg-color      #F4E0E1
+
+
+
+
+user= {
+
+cart[
+  {productId},
+  {productId},
+  {productId},
+  {productId},
+]
+
+
+}

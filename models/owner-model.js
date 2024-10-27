@@ -4,14 +4,19 @@ const mongoose = require("mongoose")
 
 const ownerSchema = mongoose.Schema({
 
-fullname : String,
+fullname : {
+    type:String,
+    minLength:3,
+    trim:true,
+},
 email : String,
 password :String,
 
-products: {
-    type: Array,
-    default:[]
-},
+products: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'product'  // Name of the product model
+}],
+
 picture:String,
 gstin: String
 
