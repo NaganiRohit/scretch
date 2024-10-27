@@ -8,6 +8,11 @@ const flash = require('connect-flash');
 const expressSession = require('express-session');
 require('dotenv').config();//jo bhi envfile me data hei use use kar payenge like jwt keys 😊 ye dusara tarika hei pahela tarika hei devlopment environment variable set karke jo / config/monngoose-connection.js me use kiya tha
 //environment ⬆ variable
+
+const PORT = process.env.PORT || 3000;
+
+
+
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 app.use(cookieParser());
@@ -33,4 +38,6 @@ app.use("/users", usersRouter)// "/users"se raletive sari reaquest usersRouter r
 app.use("/products", productsRouter) // "/product"se raletive sari reaquest productsRouter router par bhejo
 
 
-app.listen("https://github.com/NaganiRohit/scretch");
+app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+});
