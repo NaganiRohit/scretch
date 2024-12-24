@@ -1,0 +1,28 @@
+<%- include('./partials/header') %>
+  <div class="container mx-auto p-4 sm:p-8">
+    <h1 class="text-2xl sm:text-3xl font-bold mb-6 text-center">Your Orders</h1>
+
+    <% user.orders.forEach(order => { %>
+      <div class="bg-slate-100 shadow-md rounded-lg p-6 mb-8">
+        <h2 class="text-lg sm:text-xl font-semibold text-gray-700">Order Date: <%= new Date(order.date).toLocaleDateString() %></h2>
+        <p class="text-gray-600"><strong>Address:</strong> <%= order.address.city %>, <%= order.address.state %> - <%= order.address.pincode %></p>
+        <p class="text-gray-600"><strong>Total Price:</strong> ₹<%= order.totalPrice %></p>
+
+        <!-- Responsive Grid for Items --> 
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-4">
+          <% order.items.forEach(item => { %>
+            <div class="border rounded-lg  bg-[<%= item.bgcolor %>] pt-4    ">
+              <img src="data:image/jpeg;base64,<%= item.image.toString('base64') %>" alt="<%= item.name %>" class="h-32 pl-14 items-center  object-cover rounded-md mb-2">
+              <div class="bg-[<%= item.panelcolor %>]   ">
+                <h3 class="font-medium px-4 py-1 bg-[<%= item.panelcolor %>] text-gray-800"><%= item.name %></h3>
+                <p class="text-gray-600 px-4 py-1 text-slate-200 bg-[<%= item.textcolor %>] ">₹<%= item.price %></p>
+              </div>
+            </div>
+            
+          <% }) %>
+        </div>
+      </div>
+    <% }); %>
+  </div>
+</body>
+</html>

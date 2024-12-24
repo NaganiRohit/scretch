@@ -3,48 +3,77 @@ const router = express.Router();
 const productModel = require('../models/product-model');
 const ownersModel =require("../models/owner-model");
 const productCreate = require('../controllers/authControler');
+const { generateaToken , generateaTokenOwner } =require("../utils/generatetoken");
 
-router.get("/",function(req,res){
+
+
+router.get("/",function (req,res){
+    res.render("owner")
+})
+
+router.post("/", async function(req,res){
     //$env:NODE_ENV="development"    environment variable set karne ke liye
     //  console.log(process.env.NODE_ENV);//ham check kar sakte hei ki ham kis environment me hei
     // console.log(process.env.NODE_ENV); memory me save hota hei 
+
+    const {fullname,email ,password}= req.body;
+                    const owner= await ownersModel.findOne({
+                        
+                        email 
+                        
+                        })
+                        console.log(owner);
+                        
+                        const token = generateaTokenOwner(owner);//registeruser ko generateaToken jo function hei use as a argument bheja he jo /utils/generatetoken.js file se export ho raha hei
+                        // generateaToken me return hoke aa raha hei jsonwebtoken   
+                        res.cookie("token",token);
+                        res.redirect("/owners");
+                    
+
 });
         
-    if(process.env.NODE_ENV==="development"){
-        //ye router tab chalega jab environment variable "development" chal raha ho
-        router.post("/create",async function(req,res){
-            let owners=  await ownersModel.find()
+    // if(process.env.NODE_ENV==="development"){
+    //     //ye router tab chalega jab environment variable "development" chal raha ho
+    //     router.post("/create",async function(req,res){
+    //         let owners=  await ownersModel.find()
             
-            if(owners.length > 0){
-                return res
-                .status(503)
-                .send("you don't have permission to create a new owner. ")     
-            }else{
-                let {fullname,email ,password}= req.body;
-                let createdOwner= ownersModel.create({
+    //         if(owners.length > 0){
+    //             return res
+    //             .status(503)
+    //             .send("you don't have permission to create a new owner. ")     
+    //         }
+     
+            
+//             else{
+//                 let {fullname,email ,password}= req.body;
+//                 let owner= ownersModel.create({
                     
-                    fullname,
-                    email,
-                    password,
+//                     fullname,
+//                     email,
+//                     password,
                     
                     
-                    })
-                    
-                    res
-                    .status(201)
-                    .send(createdOwner);
-                }
+//                     })
+//                     const token = generateaTokenOwner(owner);//registeruser ko generateaToken jo function hei use as a argument bheja he jo /utils/generatetoken.js file se export ho raha hei
+//                     // generateaToken me return hoke aa raha hei jsonwebtoken   
+//                     res.cookie("token",token);
+//                     res.redirect("/owners");
+//                 }
                 
                 
                 
-            })
+//             })
             
-        }else{
-            console.log("no idia");
+//         }else{
+//             console.log("no idia");
             
-        }
+//         }
         
     
+
+
+
+
         
         router.get("/createProduct",function(req,res){
     let success= req.flash("success")

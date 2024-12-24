@@ -3,15 +3,20 @@ const express = require("express");
 const app = express();
 const db = require("./config/mongoose-connection")
 const path= require('path');
-const multer = require('multer');
+const cors = require('cors');
+
+// const multer = require('multer');
 const flash = require('connect-flash');
 const expressSession = require('express-session');
 require('dotenv').config();//jo bhi envfile me data hei use use kar payenge like jwt keys 😊 ye dusara tarika hei pahela tarika hei devlopment environment variable set karke jo / config/monngoose-connection.js me use kiya tha
-//environment ⬆ variable
+//environment ⬆ variable     
+const bodyParser = require('body-parser');
+
+app.use(cors());
+app.use(bodyParser.urlencoded({ extended: true, limit: '10mb' })); // Increase limit to 10MB
+app.use(bodyParser.json({ limit: '10mb' })); // Increase limit to 10MB
 
 const PORT = process.env.PORT || 3000;
-
-
 
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
@@ -31,11 +36,17 @@ const ownersRouter= require('./routes/ownersRouter');//jisme sirf owner ke rout 
 const usersRouter= require('./routes/usersRouter');//jisme sirf user ke rout hoge
 const productsRouter= require('./routes/productsRouter');//jisme sirf product ke rout hoge
 const indexRouter = require('./routes/index');
+const address = require ("./ecommerce/address.routes");
+const apis = require("./apis/getProducts")
 
 app.use("/", indexRouter)
 app.use("/owners", ownersRouter)// "/owners"se raletive sari reaquest ownersRouter router par bhejo 
 app.use("/users", usersRouter)// "/users"se raletive sari reaquest usersRouter router par bhejo
 app.use("/products", productsRouter) // "/product"se raletive sari reaquest productsRouter router par bhejo
+
+// react apis
+app.use("/api",apis)
+
 
 
 app.listen(PORT, () => {

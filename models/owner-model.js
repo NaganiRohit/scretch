@@ -1,6 +1,4 @@
-const mongoose = require("mongoose")
-
-
+const mongoose = require("mongoose");
 
 const ownerSchema = mongoose.Schema({
 
@@ -17,8 +15,14 @@ products: [{
     ref: 'product'  // Name of the product model
 }],
 
+orders: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'EcommersOrder'
+}],
+
 picture:String,
 gstin: String
 
 });
+
 module.exports= mongoose.model('owner',ownerSchema)

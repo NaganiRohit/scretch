@@ -1,35 +1,31 @@
-const express =require("express");
+const express = require("express");
 const router = express.Router();
-const users = require('../models/user-model');
-const {registerUser,loginUser} = require('../controllers/authControler');
-const isLoggedin = require('../middlewares/isLoggedin');
-router.get("/", function(req,res){
-        res.send("users");
-})
+const users = require("../models/user-model");
+const { registerUser, loginUser } = require("../controllers/authControler");
+const isLoggedin = require("../middlewares/isLoggedin");
 
-router.post("/register",registerUser)
+// Route for base users endpoint
+router.get("/", (req, res) => {
+    res.send("users");
+});
 
+// Route for user registration
+router.post("/register", registerUser);
 
-router.post("/login",loginUser)
+// Route for user login
+router.post("/login", loginUser);
 
+// Route for user logout
+router.get("/logout", isLoggedin, async (req, res) => {
+    try {
+        // Clear the authentication token
+        res.cookie("token", "");
 
-
-
-
-router.get("/logout",isLoggedin,async function(req,res){
-        try {
-                
-                
-                res.cookie("token","")
-
-                res.redirect("/")
-        
-   } catch (error) {
-        res.send(error)
-   }
-})
-
-
-
+        // Redirect to the homepage
+        res.redirect("/");
+    } catch (error) {
+        res.send(error);
+    }
+});
 
 module.exports = router;

@@ -1,102 +1,150 @@
-<%- include('./partials/header') %>
+<!DOCTYPE html>
+<html lang="en">
 
-    <% if(success.length>0){ %>
-        <div class=" absolute top-5 left-1/2 -translate-x-1/2 -translate-y-1/2 p-3 rounded-md bg-blue-500">
-            <span class="inline-block mt-1 mb-1 text-white">
-                <%= success %>
-            </span>
-        </div>
-        <% } %>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create New Product</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #F3EAF2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
 
-            <div class="h-full flex flex-col        text-xl            text-white    bg-slate-900">
-                <div class="container px-10 py-20 flex flex-grow                      ">
-                    <div class="w-[25%] flex h-screen flex-col items-start">
-                        <div class="flex flex-col   ">
-                            <a class="block w-fit mb-2" href="/owners/AllProducts">All Products</a>
-                            <a class="block w-fit mb-2" href="/owners/createProduct">Create new product</a>
-                        </div>
-                    </div>
-                    <main class="w-3/4 bg-slate-700 p-8 shadow ml-4   ">
-                        <h2 class="text-xl font-bold mb-4">Create New Product</h2>
-                        <form autocomplete="off" action="/products/create" method="post" enctype="multipart/form-data">
-                            <div class="mb-6 ">
-                                <h3 class="text-lg font-semibold mb-2">Product Details</h3>
-                                <div class="mb-4">
-                                    <label class="block mb-2 font-medium">Product Image</label>
-                                    <input name="image" type="file" class="py-2 px-4 rounded" value="Select File">
-                                </div>
-                                <div class="grid grid-cols-2 gap-4 text-black">
-                                    <input name="name" type="text" placeholder="Product Name"
-                                        class="border p-2 rounded w-full ">
-                                    <input name="price" type="text" placeholder="Product Price"
-                                        class="border p-2 rounded w-full">
-                                    <input name="discount" type="text" placeholder="Discount Price"
-                                        class="border p-2 rounded w-full">
-                                </div>
-                            </div>
+        .form-container {
+            background-color: #FFFFFF;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            width: 400px;
+        }
 
-                            <div>
-                                <h3 class="text-lg font-semibold mb-2">Panel Details</h3>
-                                <div class="grid grid-cols-2 gap-4 text-black">
-                                                        <!-- Background Color -->
-                    <select name="bgcolor" class="border p-2 rounded w-full">
-                        <option value="" disabled selected>Select Background Color</option>
-                        <option value="#F4DDD2">Brown</option>
-                        <option value="#F3F8FB">Blue</option>
-                        <option value="#DED0BF">Khakhi-Brown</option>
-                        <option value="#F4E0E1">Pink</option>
-                        <option value="#DCE9DC">Green</option>
-                        <option value="#FAEACD">Yellow</option>
-                        <option value="#ECE7F1">Lavender</option>
-                        <option value="#F7E5DD">Orange</option>
-                        <option value="#D6E8E8">Teal</option>
-                        <option value="#E7E4D7">Olive Green</option>
-                        <option value="#E3DEF2">Deep Purple</option>
-                        <option value="#F8E3DD">Rust Orange</option>
-                        </select>
+        .form-container h2 {
+            text-align: center;
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 20px;
+        }
 
-                    <!-- Panel Color -->
-                    <select name="panelcolor" class="border p-2 rounded w-full">
-                        <option value="" disabled selected>Select Panel Color</option>
-                        <option value="#DEBEAE">Brown</option>
-                        <option value="#D3E4EE">Blue</option>
-                        <option value="#C5B095">Khakhi-Brown</option>
-                        <option value="#E3C4C6">Pink</option>
-                        <option value="#A3C6A5">Green</option>
-                        <option value="#F1D693">Yellow</option>
-                        <option value="#CDC2D9">Lavender</option>
-                        <option value="#E3B8A3">Orange</option>
-                        <option value="#A1C6C6">Teal</option>
-                        <option value="#E7E4D7">Olive Green</option>
-                        <option value="#B4A5D6">Deep Purple</option>
-                        <option value="#E2A290">Rust Orange</option>
-                    </select>
+        .form-group {
+            margin-bottom: 15px;
+        }
 
-                    <!-- Text Color -->
-                    <select name="textcolor" class="border p-2 rounded w-full">
-                        <option value="" disabled selected>Select Text Color</option>
-                        <option value="#774F3D">Brown</option>
-                        <option value="#48606E">Blue</option>
-                        <option value="#5F4A30">Khakhi-Brown</option>
-                        <option value="#816264">Pink</option>
-                        <option value="#2E4631">Green</option>
-                        <option value="#8B6F28">Yellow</option>
-                        <option value="#5A4E72">Lavender</option>
-                        <option value="#A04B3E">Orange</option>
-                        <option value="#355B5C">Teal</option>
-                        <option value="#4A4D32">Olive Green</option>
-                        <option value="#3F3068">Deep Purple</option>
-                        <option value="#8A3B2E">Rust Orange</option>
-                    </select>
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+            
+        }
 
-                                    
-                            </div>
-                            <input class="px-5 py-2 rounded mt-3 bg-blue-500 text-white" type="submit"
-                                value="Create New Product" onclick=<% function name(params) {
-                                    products.push(product)
-                            } %>>
-                        </form>
-                    </main>
-                </div>
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .form-group select option {
+            padding: 10px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 10px;
+            background-color: #7C4DFF;
+            color: #FFFFFF;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .submit-btn:hover {
+            background-color: #5E35B1;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="form-container">
+        <h2>Create New Product</h2>
+        <form autocomplete="off" action="/products/create" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <label>Product Image</label>
+                <input name="image" type="file">
             </div>
-            <%- include('./partials/footer') %>
+            <div class="form-group">
+                <input name="name" type="text" placeholder="Product Name">
+            </div>
+            <div class="form-group">
+                <input name="price" type="text" placeholder="Product Price">
+            </div>
+            <div class="form-group">
+                <input name="discount" type="text" placeholder="Discount Price">
+            </div>
+            <div class="form-group">
+                <label>Background Color</label>
+                <select name="bgcolor">
+                    <option value="" disabled selected>Select Background Color</option>
+                    <option value="#F4DDD2">Brown</option>
+                    <option value="#F3F8FB">Blue</option>
+                    <option value="#DED0BF">Khakhi-Brown</option>
+                    <option value="#F4E0E1">Pink</option>
+                    <option value="#DCE9DC">Green</option>
+                    <option value="#FAEACD">Yellow</option>
+                    <option value="#ECE7F1">Lavender</option>
+                    <option value="#F7E5DD">Orange</option>
+                    <option value="#D6E8E8">Teal</option>
+                    <option value="#E7E4D7">Olive Green</option>
+                    <option value="#E3DEF2">Deep Purple</option>
+                    <option value="#F8E3DD">Rust Orange</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Panel Color</label>
+                <select name="panelcolor">
+                    <option value="" disabled selected>Select Panel Color</option>
+                    <option value="#DEBEAE">Brown</option>
+                    <option value="#D3E4EE">Blue</option>
+                    <option value="#C5B095">Khakhi-Brown</option>
+                    <option value="#E3C4C6">Pink</option>
+                    <option value="#A3C6A5">Green</option>
+                    <option value="#F1D693">Yellow</option>
+                    <option value="#CDC2D9">Lavender</option>
+                    <option value="#E3B8A3">Orange</option>
+                    <option value="#A1C6C6">Teal</option>
+                    <option value="#E7E4D7">Olive Green</option>
+                    <option value="#B4A5D6">Deep Purple</option>
+                    <option value="#E2A290">Rust Orange</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Text Color</label>
+                <select name="textcolor">
+                    <option value="" disabled selected>Select Text Color</option>
+                    <option value="#774F3D">Brown</option>
+                    <option value="#48606E">Blue</option>
+                    <option value="#5F4A30">Khakhi-Brown</option>
+                    <option value="#816264">Pink</option>
+                    <option value="#2E4631">Green</option>
+                    <option value="#8B6F28">Yellow</option>
+                    <option value="#5A4E72">Lavender</option>
+                    <option value="#A04B3E">Orange</option>
+                    <option value="#355B5C">Teal</option>
+                    <option value="#4A4D32">Olive Green</option>
+                    <option value="#3F3068">Deep Purple</option>
+                    <option value="#8A3B2E">Rust Orange</option>
+                </select>
+            </div>
+            <button class="submit-btn" type="submit">Create New Product</button>
+        </form>
+    </div>
+</body>
+
+</html>

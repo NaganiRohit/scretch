@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css">
+
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
@@ -14,12 +16,13 @@
 
 <% if(Loggedin){ %>
      
-    <nav class="w-full flex justify-between px-5 py-3 text-2xl">
+    <nav class="w-full flex justify-between px-5 py-3 text-xl">
         <h3 class="text-2xl">Scatch</h3>
         <div class="flex gap-5">
             <a href="/shop">Shop</a>
             <a href="/cart">Cart</a>
             <a href="">My Account</a>
+            <a href="/MyOrders">MyOrders</a>
             <a href="/users/logout" class="text-red-600">Logout</a>
             
         </div>
